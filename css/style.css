@@ -1,3 +1,33 @@
-.d-none {
-  display: none;
+body {
+  background-color: #85FFBD;
 }
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.container-game {
+  background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(14,174,87,1) 0%, rgba(12,116,117,1) 90% );;
+  border: 1px solid black;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.container-game .numeri p {
+  margin: 10px 25px;
+  font-size: 35px;
+}
+
+.container-game .risultato p {
+  margin: 10px 25px;
+  font-size: 35px;
+}
+

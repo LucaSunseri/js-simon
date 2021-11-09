@@ -6,57 +6,78 @@ Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei num
 */
 
 
-
-
-const numeri = myRandomInts(5, 10, 15);
-
 const displayNumeri = document.querySelector('.numeri');
-
 const displayRisultato = document.querySelector('.risultato');
 
 
-displayNumeri.innerHTML = `
-  ${numeri.join(' - ')}
-`;
+const numeri = myRandomInts(5, 10, 15);
+const numeriUtente = []; 
+let numeriIndovinati = [];
+const tempoGiocoSecondi = 5;
 
-const intervalloTempoGioco = setInterval(function() {
+// START GAME 
 
-  displayNumeri.classList.add('d-none');
+stampaNumeri();
 
-},5000);
+// Funzione che dopo $tempoGiocoSecondi resetta l'html
+setInterval(function() {
+
+  displayNumeri.innerHTML = '';
+
+},tempoGiocoSecondi * 1000);
 
 
+// Funzione che che dopo i secondi iniziale che hai per memorizzare i numeri ti fa inserire i numeri da indovinare e stampa il risultato
 setTimeout(function() {
-
-  const numeriUtente = [];
 
   for (let i = 0; i < 5; i++) {
 
     const numeroUtente = parseInt(prompt('Inserisci i numeri'));
     // console.log(numeroUtente);
 
-    numeriUtente.push(numeroUtente);
-  
+    if (!(numeriUtente.includes(numeroUtente))) {
+      numeriUtente.push(numeroUtente);
+    }
     // console.log(numeriUtente);
   }
 
-  console.log(numeri);
-  console.log(numeriUtente);
+  // console.log(numeri);
+  // console.log(numeriUtente);
 
 
-  let intersection = numeriUtente.filter(x => numeri.includes(x));
+  numeriIndovinati = numeriUtente.filter(x => numeri.includes(x));
 
-  console.log(intersection);
+  // console.log(numeriIndovinati);
 
+  stampaRisultato();
+
+},tempoGiocoSecondi * (1000 + 100));
+
+
+
+//Funzione che stampa il risultato del gioco 
+function stampaRisultato() {
   displayRisultato.innerHTML = `
-  I numeri da te inseriti sono ${numeriUtente.join(' - ')}, <br>
-  ma quelli indovinati sono ${intersection.join(' - ')} <br>
-  in totale hai totalizzato ${intersection.length} punti!
+  <p>
+    I numeri erano ${numeri.join(' - ')} <br>
+    I numeri da te inseriti sono ${numeriUtente.join(' - ')} <br>
+    In totale hai totalizzato ${numeriIndovinati.length} punti!
+  </p>
   `;
+}
 
-},5200);
 
-
+// Funzione che stampo nell'HTML i numeri da memorizzare
+function stampaNumeri() {
+  displayNumeri.innerHTML = `
+  <h3>
+    Osserva i segunti numeri per ${tempoGiocoSecondi} secondi:
+  </h3>
+  <p>
+    ${numeri.join(' - ')}
+  </p>
+`;
+}
 
 
 // Funzione che genera un array di un tot. numeri(quantity) da x(min) a y(max) inclusi;
