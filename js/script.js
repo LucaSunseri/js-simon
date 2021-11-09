@@ -13,7 +13,7 @@ const displayRisultato = document.querySelector('.risultato');
 const numeri = myRandomInts(5, 10, 15);
 const numeriUtente = []; 
 let numeriIndovinati = [];
-const tempoGiocoSecondi = 5;
+const tempoGiocoSecondi = 30;
 
 // START GAME 
 
