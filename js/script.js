@@ -10,62 +10,40 @@ const displayNumeri = document.querySelector('.numeri');
 const displayRisultato = document.querySelector('.risultato');
 
 
-const numeri = myRandomInts(5, 10, 99);
-const numeriUtente = []; 
-let numeriIndovinati = [];
+const numeriDaMemorizzare = myRandomInts(5, 10, 99); 
 const tempoGiocoSecondi = 30;
 
-// START GAME 
+
+/*********** START GAME ***********/
 
 stampaNumeri();
 
-// Funzione che dopo $tempoGiocoSecondi resetta l'html
-setInterval(function() {
+setTimeout(resetHtml,tempoGiocoSecondi * 1000);
 
-  displayNumeri.innerHTML = '';
-
-},tempoGiocoSecondi * 1000);
-
-
-// Funzione che che dopo i secondi iniziale che hai per memorizzare i numeri ti fa inserire i numeri da indovinare e stampa il risultato
 setTimeout(function() {
 
-  for (let i = 0; i < 5; i++) {
+  const numeriUtente = numeriInseriti();
 
-    const numeroUtente = parseInt(prompt('Inserisci i numeri'));
-    // console.log(numeroUtente);
-
-    if (!(numeriUtente.includes(numeroUtente))) {
-      numeriUtente.push(numeroUtente);
-    }
-    // console.log(numeriUtente);
-  }
-
-  // console.log(numeri);
-  // console.log(numeriUtente);
-
-
-  numeriIndovinati = numeriUtente.filter(x => numeri.includes(x));
-
+  const numeriIndovinati = numeriUtente.filter(x => numeriDaMemorizzare.includes(x));
   // console.log(numeriIndovinati);
 
-  stampaRisultato();
+  stampaRisultato(numeriUtente, numeriIndovinati);
 
-},tempoGiocoSecondi * (1000 + 100));
+},tempoGiocoSecondi * (1000 + 1));
 
 
+/*********** FUNZIONI ***********/
 
-//Funzione che stampa il risultato del gioco 
-function stampaRisultato() {
+// Funzione che stampa il risultato del gioco 
+function stampaRisultato(numeriUtente, numeriIndovinati) {
   displayRisultato.innerHTML = `
   <p>
-    I numeri erano ${numeri.join(' - ')} <br>
+    I numeri erano ${numeriDaMemorizzare.join(' - ')} <br>
     I numeri da te inseriti sono ${numeriUtente.join(' - ')} <br>
     In totale hai totalizzato ${numeriIndovinati.length} punti!
   </p>
   `;
-}
-
+};
 
 // Funzione che stampo nell'HTML i numeri da memorizzare
 function stampaNumeri() {
@@ -74,13 +52,40 @@ function stampaNumeri() {
     Osserva i segunti numeri per ${tempoGiocoSecondi} secondi:
   </h3>
   <p>
-    ${numeri.join(' - ')}
+    ${numeriDaMemorizzare.join(' - ')}
   </p>
 `;
-}
+};
 
+// Funzione che dopo $tempoGiocoSecondi resetta l'html
+function resetHtml() {
 
-// Funzione che genera un array di un tot. numeri(quantity) da x(min) a y(max) inclusi;
+  displayNumeri.innerHTML = '';
+
+};
+
+// Funzione che che chiede all'utente i numeri di inserire tot numeri quanti quelli da indovinare
+function numeriInseriti() {
+
+  const numeriUtente = [];  
+
+  for (let i = 0; i < 5; i++) {
+
+    const numeroUtente = parseInt(prompt('Inserisci i numeri che hai appena osservato'));
+    // console.log(numeroUtente);
+
+    if (!(numeriUtente.includes(numeroUtente))) {
+      numeriUtente.push(numeroUtente);
+    }
+    // console.log(numeriUtente);
+  }
+  // console.log(numeri);
+  // console.log(numeriUtente);
+
+  return numeriUtente;
+};
+
+// Funzione che genera un array di un tot. numeriRandom(quantity) da x(min) a y(max) inclusi;
 function myRandomInts(quantity, min, max) {
 
   const arrayNumeri = [];
@@ -96,4 +101,4 @@ function myRandomInts(quantity, min, max) {
   }
 
   return arrayNumeri;
-}
+};
