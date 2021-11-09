@@ -10,7 +10,7 @@ const displayNumeri = document.querySelector('.numeri');
 const displayRisultato = document.querySelector('.risultato');
 
 
-const numeri = myRandomInts(5, 10, 15);
+const numeri = myRandomInts(5, 10, 99);
 const numeriUtente = []; 
 let numeriIndovinati = [];
 const tempoGiocoSecondi = 30;
